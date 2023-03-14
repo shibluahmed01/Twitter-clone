@@ -1,28 +1,21 @@
 <template>
   <div class="add-tweet">
     <div class="add-tweet-profile">
-      <img :src="me.profile.pic">
+      <img
+        src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/328890854_6049339775125967_4957679846861641276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEsEQMGABUL1QCAWvQYGi_1veZIDFRML2C95kgMVEwvYPFgzNY-WuJXHuSh_neYNCPizwJdAuvXfhItdWXbsiED&_nc_ohc=EbIV2iMDaBgAX_ZsKLj&_nc_ht=scontent.frjh1-1.fna&oh=00_AfC9UoV7A5AwAoLaLII8E4mXwxbgbv-81AxOnzIERKwe1A&oe=6415E25B"
+      />
     </div>
     <div class="add-tweet-content">
       <div class="tweet-section">
-        <textarea
-          v-model="tweetContent.text"
-          placeholder="What's happening?"
-        />
-        <div
-          v-if="tweetContent.imageList"
-          class="tweet-section-images"
-        >
+        <textarea v-model="tweetContent.text" placeholder="What's happening?" />
+        <div v-if="tweetContent.imageList" class="tweet-section-images">
           <div
             v-for="(image, i) in tweetContent.imageList"
             :key="i"
             class="image-container"
           >
-            <img :src="image.url">
-            <div
-              class="close-button"
-              @click="deleteImage(i)"
-            >
+            <img :src="image.url" />
+            <div class="close-button" @click="deleteImage(i)">
               <base-icon icon="close" />
             </div>
           </div>
@@ -41,7 +34,7 @@
               accept="image/*"
               hidden
               @change="showFiles"
-            >
+            />
           </div>
           <div class="controls-media-item">
             <base-icon icon="gif" />
@@ -54,10 +47,7 @@
           </div>
         </div>
         <div class="controls-submit">
-          <button
-            :disabled="!hasTweetText()"
-            @click="handleSubmit"
-          >
+          <button :disabled="!hasTweetText()" @click="handleSubmit">
             Tweet
           </button>
         </div>
@@ -67,68 +57,72 @@
 </template>
 
 <script>
-import { ref , getCurrentInstance} from 'vue'
-import BaseIcon from '@/components/BaseIcon'
-import { mapGetters } from 'vuex'
-import Tweet from '@/models/Tweet'
-import User from '@/models/User'
-import {uploadTweet} from '@/services/api'
-import { useStore } from 'vuex'
+import { ref, getCurrentInstance } from "vue";
+import BaseIcon from "@/components/BaseIcon";
+import { mapGetters } from "vuex";
+import Tweet from "@/models/Tweet";
+import User from "@/models/User";
+import { uploadTweet } from "@/services/api";
+import { useStore } from "vuex";
 
 export default {
-  name: 'AddTweet',
-  components:{
-    BaseIcon
+  name: "AddTweet",
+  components: {
+    BaseIcon,
   },
-  setup(props, context){
-    const tweetContent = ref(defaultTweetContent())
+  setup(props, context) {
+    const tweetContent = ref(defaultTweetContent());
     const store = useStore();
 
     const app = getCurrentInstance();
-    const $notification = app.parent.appContext.config.globalProperties.$notification;
+    const $notification =
+      app.parent.appContext.config.globalProperties.$notification;
 
-    function defaultTweetContent(){
+    function defaultTweetContent() {
       return {
-        text: '',
-        imageList: []
-      }
+        text: "",
+        imageList: [],
+      };
     }
-    
-    async function handleSubmit(){
+
+    async function handleSubmit() {
       const newTweetContent = {
         text: tweetContent.value.text,
-        photos: tweetContent.value.imageList
-      }
-      const newTweet = new Tweet(new User(store.getters.getMe), newTweetContent);
-      try{
+        photos: tweetContent.value.imageList,
+      };
+      const newTweet = new Tweet(
+        new User(store.getters.getMe),
+        newTweetContent
+      );
+      try {
         await uploadTweet(newTweet);
         $notification({
-          type: 'info',
-          message: 'Tweet sent!'
-        })
-      }catch(err){
+          type: "info",
+          message: "Tweet sent!",
+        });
+      } catch (err) {
         $notification({
-          type: 'error',
-          message: 'Error in send tweet'
-        })
+          type: "error",
+          message: "Error in send tweet",
+        });
       }
 
-      context.emit('submit-click')
+      context.emit("submit-click");
       tweetContent.value = defaultTweetContent();
     }
 
-    function hasTweetText(){
-      return tweetContent.value.text.length > 0 && tweetContent.value.text
+    function hasTweetText() {
+      return tweetContent.value.text.length > 0 && tweetContent.value.text;
     }
 
-    function showFiles(e){
+    function showFiles(e) {
       const [file] = e.target.files;
       const url = URL.createObjectURL(file);
-      tweetContent.value.imageList.push({url})
+      tweetContent.value.imageList.push({ url });
     }
 
-    function deleteImage(index){
-      tweetContent.value.imageList.splice(index, 1)
+    function deleteImage(index) {
+      tweetContent.value.imageList.splice(index, 1);
     }
 
     return {
@@ -136,41 +130,41 @@ export default {
       handleSubmit,
       hasTweetText,
       showFiles,
-      deleteImage
-    }
+      deleteImage,
+    };
   },
-  computed:{
+  computed: {
     ...mapGetters({
-      me: 'getMe'
+      me: "getMe",
     }),
   },
-}
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/theme/colors';
+@import "@/assets/theme/colors";
 
-.add-tweet{
+.add-tweet {
   padding: 10px 1rem;
   padding-bottom: 0;
   display: flex;
   width: 100%;
   border-top: $border-dark;
   border-bottom: $border-dark;
-  &-profile{
+  &-profile {
     width: 4rem;
     height: 4rem;
-    img{
+    img {
       border-radius: 999px;
       width: 100%;
     }
   }
-  &-content{
+  &-content {
     margin-left: 15px;
     width: 100%;
-    .tweet-section{
+    .tweet-section {
       width: 100%;
-      textarea{
+      textarea {
         appearance: none;
         -webkit-appearance: none;
         display: block;
@@ -179,21 +173,21 @@ export default {
         resize: vertical;
         background-color: transparent;
         border: none;
-        width: 100%; 
+        width: 100%;
         min-height: 5rem;
         max-height: 10rem;
         border-radius: 5px;
         color: #fff;
-        &:focus{
+        &:focus {
           border: none;
           outline: none;
         }
       }
-      &-images{
+      &-images {
         display: flex;
         padding: 1rem;
-        .image-container{
-          & + .image-container{
+        .image-container {
+          & + .image-container {
             margin-left: 15px;
           }
           display: flex;
@@ -201,10 +195,10 @@ export default {
           justify-content: center;
           position: relative;
           flex-grow: 1;
-          img{
+          img {
             width: 100%;
           }
-          .close-button{
+          .close-button {
             position: absolute;
             background-color: rgba($color: $color-dark-gray, $alpha: 0.3);
             top: 0;
@@ -216,7 +210,7 @@ export default {
             height: 2rem;
             border-radius: 999px;
             padding: 7px;
-            svg{
+            svg {
               width: 100%;
               height: 100%;
               fill: #fff;
@@ -225,32 +219,32 @@ export default {
         }
       }
     }
-    .controls{
+    .controls {
       border-top: $border-dark;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 10px 0;
-      &-media{
+      &-media {
         display: flex;
         gap: 4px;
-        &-item{
+        &-item {
           width: 32px;
           height: 32px;
           border-radius: 999px;
-          cursor:pointer;
+          cursor: pointer;
           padding: 5px;
-          svg{
+          svg {
             width: 100%;
-            fill: $color-blue
+            fill: $color-blue;
           }
-          &:hover{
+          &:hover {
             background-color: rgba($color: $color-blue, $alpha: 0.3);
           }
         }
       }
-      &-submit{
-        button{
+      &-submit {
+        button {
           cursor: pointer;
           background-color: $color-blue;
           color: #fff;
@@ -259,7 +253,7 @@ export default {
           outline: none;
           border: none;
           border-radius: 9999px;
-          &:disabled{
+          &:disabled {
             cursor: no-drop;
             background-color: rgba($color: $color-blue, $alpha: 0.3);
             color: rgba($color: #fff, $alpha: 0.3);

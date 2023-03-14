@@ -1,7 +1,9 @@
 <template>
   <div class="tweet">
     <div class="tweet-owner">
-      <img src="https://pbs.twimg.com/profile_images/1344794962697793537/GYEm82zC_normal.jpg">
+      <img
+        src="https://pbs.twimg.com/profile_images/1344794962697793537/GYEm82zC_normal.jpg"
+      />
     </div>
     <div class="tweet-content">
       <div class="tweet-content-header">
@@ -9,19 +11,16 @@
           {{ tweetData.author.profile.name }}
           <span class="nickname">{{ tweetData.author.profile.nickname }}</span>
           <span>&#183;</span>
-          <span class="created-at">{{ moment(tweetData.createdAt).fromNow() }}</span>
+          <span class="created-at">{{
+            moment(tweetData.createdAt).fromNow()
+          }}</span>
         </p>
       </div>
-      <div
-        class="tweet-content-body"
-      >
+      <div class="tweet-content-body">
         <p v-if="!isTweetEditing">
           {{ editedTweetData }}
         </p>
-        <div
-          v-if="isTweetEditing"
-          class="tweet-content-edit-tweet"
-        >
+        <div v-if="isTweetEditing" class="tweet-content-edit-tweet">
           <textarea v-model="editedTweetData" />
         </div>
         <div
@@ -37,15 +36,12 @@
               <img
                 :src="tweetPhoto.url"
                 @click="$store.dispatch('setLightbox', tweetImages)"
-              >
+              />
             </div>
           </div>
         </div>
       </div>
-      <div
-        v-if="!isTweetEditing"
-        class="tweet-content-actions"
-      >
+      <div v-if="!isTweetEditing" class="tweet-content-actions">
         <div class="action-item comment">
           <base-icon icon="comment" />
           <span>5</span>
@@ -62,20 +58,11 @@
           <base-icon icon="share" />
         </div>
       </div>
-      <div
-        v-if="isTweetEditing"
-        class="tweet-content-edit-actions"
-      >
-        <div
-          class="action-item cancel"
-          @click="handleCancelEdit"
-        >
+      <div v-if="isTweetEditing" class="tweet-content-edit-actions">
+        <div class="action-item cancel" @click="handleCancelEdit">
           Cancel
         </div>
-        <div
-          class="action-item save"
-          @click="handleEditTweet"
-        >
+        <div class="action-item save" @click="handleEditTweet">
           Save
         </div>
       </div>
@@ -98,115 +85,115 @@
 </template>
 
 <script>
-import BaseIcon from '@/components/BaseIcon'
-import EditTweetPopup from '@/components/Tweet/EditTweetPopup'
-import moment from 'moment'
-import { updateTweet } from '@/services/api'
+import BaseIcon from "@/components/BaseIcon";
+import EditTweetPopup from "@/components/Tweet/EditTweetPopup";
+import moment from "moment";
+import { updateTweet } from "@/services/api";
 
 export default {
-  name: 'Tweet',
-  components:{
+  name: "Tweet",
+  components: {
     BaseIcon,
-    EditTweetPopup
+    EditTweetPopup,
   },
   props: {
     tweetData: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
-  data(){
+  data() {
     return {
       isEditMenuOpened: false,
       isTweetEditing: false,
-      editedTweetData: this.tweetData.content
-    }
+      editedTweetData: this.tweetData.content,
+    };
   },
-  computed:{
-    tweetImages(){
-      return this.tweetData.photos.map(photo => photo.url)
-    }
-  },
-  methods:{
-    moment,
-    handleDelete(){
-      this.$emit('delete-tweet')
+  computed: {
+    tweetImages() {
+      return this.tweetData.photos.map((photo) => photo.url);
     },
-    async handleEditTweet(){
+  },
+  methods: {
+    moment,
+    handleDelete() {
+      this.$emit("delete-tweet");
+    },
+    async handleEditTweet() {
       const request = {
         id: this.tweetData.id,
-        content: this.editedTweetData
-      }
-      try{
-        await updateTweet(request)
+        content: this.editedTweetData,
+      };
+      try {
+        await updateTweet(request);
         this.$notification({
-          type: 'success',
-          message: 'Tweet is edited succesfully!'
-        })
-      }catch{
+          type: "success",
+          message: "Tweet is edited succesfully!",
+        });
+      } catch {
         this.$notification({
-          type: 'error',
-          message: 'Error when editing tweet!'
-        })
+          type: "error",
+          message: "Error when editing tweet!",
+        });
       }
-      this.isTweetEditing = false
+      this.isTweetEditing = false;
     },
-    handleCancelEdit(){
-      this.isTweetEditing = false
+    handleCancelEdit() {
+      this.isTweetEditing = false;
     },
-    handleClickToEdit(){
+    handleClickToEdit() {
       this.isTweetEditing = true;
       this.isEditMenuOpened = false;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/theme/colors.scss';
-@import '@/assets/variables.scss';
+@import "@/assets/theme/colors.scss";
+@import "@/assets/variables.scss";
 
-.tweet{
+.tweet {
   padding: 1rem;
   display: flex;
   transition: 100ms ease background-color;
-  &-edit-button{
+  &-edit-button {
     position: relative;
-    &-icon{
+    &-icon {
       width: 2rem;
       height: 2rem;
       border-radius: 999px;
       padding: 4px;
       cursor: pointer;
-      svg{
+      svg {
         fill: $color-dark-gray;
       }
-      &:hover{
+      &:hover {
         background-color: rgba($color: $color-blue, $alpha: 0.3);
-        svg{
-          fill: $color-blue
+        svg {
+          fill: $color-blue;
         }
       }
     }
   }
-  &:hover{
+  &:hover {
     background-color: rgba($color: $color-dark-gray, $alpha: 0.2);
   }
-  &-owner{
+  &-owner {
     min-width: 3rem;
     min-height: 3rem;
-    img{
+    img {
       width: 100%;
       border-radius: 999px;
     }
   }
-  &-content{
+  &-content {
     margin-left: 10px;
     flex-grow: 1;
-    &-edit-tweet{
+    &-edit-tweet {
       border: $border-dark;
       margin: 1rem 0;
-      textarea{
+      textarea {
         appearance: none;
         -webkit-appearance: none;
         display: block;
@@ -215,50 +202,49 @@ export default {
         resize: vertical;
         background-color: transparent;
         border: none;
-        width: 100%; 
+        width: 100%;
         min-height: 5rem;
         max-height: 10rem;
         border-radius: 5px;
         color: #fff;
-        &:focus{
+        &:focus {
           border: none;
           outline: none;
         }
       }
     }
-    &-header{
-      p{
+    &-header {
+      p {
         margin: 8px 0;
         font-weight: bold;
         color: #fff;
-        span{
+        span {
           color: $color-dark-gray;
-          & + span{
+          & + span {
             margin-left: 8px;
           }
-          &.nickname{
+          &.nickname {
           }
-          &.created-at{
-
+          &.created-at {
           }
         }
       }
     }
-    &-body{
+    &-body {
       color: #fff;
-      &-images{
-        &-wrapper{
+      &-images {
+        &-wrapper {
           border-radius: 10px;
           overflow: hidden;
           border: $border-light;
           display: flex;
-          .tweet-content-image-item{
+          .tweet-content-image-item {
             cursor: zoom-in;
-            & + .tweet-content-image-item{
+            & + .tweet-content-image-item {
               border-left: $border-light;
             }
             flex-grow: 1;
-            img{
+            img {
               vertical-align: middle;
               width: 100%;
             }
@@ -266,17 +252,17 @@ export default {
         }
       }
     }
-    &-actions{
+    &-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
       max-width: 450px;
       width: 100%;
-      .action-item{
+      .action-item {
         display: flex;
         align-items: center;
         cursor: pointer;
-        svg{
+        svg {
           padding: 8px;
           border-radius: 999px;
           display: block;
@@ -284,55 +270,55 @@ export default {
           height: 36px;
           fill: $color-light-gray;
         }
-        span{
+        span {
           color: $color-light-gray;
         }
-        &:hover{
-          &.comment{
-            svg{
+        &:hover {
+          &.comment {
+            svg {
               fill: $tweet-action-blue;
               background-color: rgba($color: $tweet-action-blue, $alpha: 0.2);
             }
-            span{
+            span {
               color: $tweet-action-blue;
             }
           }
-          &.retweet{
-            svg{
+          &.retweet {
+            svg {
               fill: $tweet-action-green;
               background-color: rgba($color: $tweet-action-green, $alpha: 0.2);
             }
-            span{
+            span {
               color: $tweet-action-green;
             }
           }
-          &.like{
-            svg{
+          &.like {
+            svg {
               fill: $tweet-action-red;
               background-color: rgba($color: $tweet-action-red, $alpha: 0.2);
             }
-            span{
+            span {
               color: $tweet-action-red;
             }
           }
         }
       }
     }
-    &-edit-actions{
+    &-edit-actions {
       display: flex;
       justify-content: flex-end;
-      .action-item{
+      .action-item {
         cursor: pointer;
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
         border-radius: 999px;
-        &.cancel{
+        &.cancel {
           border: 1px solid $color-blue;
           color: $color-blue;
-          &:hover{
+          &:hover {
             background-color: rgba($color: $color-blue, $alpha: 0.3);
           }
         }
-        &.save{
+        &.save {
           margin-left: 1rem;
           background-color: $color-blue;
           color: #fff;
@@ -343,24 +329,24 @@ export default {
   }
 }
 @media screen and (max-width: $phone) {
-  .tweet{
-    &-content{
-      &-header{
-        span{
+  .tweet {
+    &-content {
+      &-header {
+        span {
           display: none;
         }
-        .created-at{
+        .created-at {
           margin-left: unset;
           display: block;
           color: rgba($color: $color-dark-gray, $alpha: 0.5);
           margin: 5px 0;
         }
-        .nickname{
+        .nickname {
           display: unset;
           color: $color-dark-gray;
         }
       }
-      &-actions{
+      &-actions {
         max-width: unset;
       }
     }

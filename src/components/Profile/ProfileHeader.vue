@@ -1,12 +1,16 @@
 <template>
   <header v-if="me.id">
     <div class="profile-cover-pic">
-      <img :src="me.profile.pic_cover">
+      <img
+        src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/321609998_685262263091569_9019932702197600597_n.jpg?stp=dst-jpg_s960x960&_nc_cat=110&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeGE9k30HpVFtHqvJAfNiRhQf0K3LliFHRZ_QrcuWIUdFt-n4YwVBZnyivqeib5cgpDJXY-nOtngihOWE1E0gcuE&_nc_ohc=Yb6E8jGoeMYAX-RKEto&_nc_ht=scontent.frjh1-1.fna&oh=00_AfBgsDA9fHsU_j9PQw7P4Gx5Zzb6mg2CkvVCLNIDOTT6Ew&oe=64150D85"
+      />
     </div>
     <div class="profile-header">
       <div class="profile-actions">
         <div class="profile-actions-image">
-          <img :src="me.profile.pic_full">
+          <img
+            src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/328890854_6049339775125967_4957679846861641276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEsEQMGABUL1QCAWvQYGi_1veZIDFRML2C95kgMVEwvYPFgzNY-WuJXHuSh_neYNCPizwJdAuvXfhItdWXbsiED&_nc_ohc=EbIV2iMDaBgAX_ZsKLj&_nc_ht=scontent.frjh1-1.fna&oh=00_AfC9UoV7A5AwAoLaLII8E4mXwxbgbv-81AxOnzIERKwe1A&oe=6415E25B"
+          />
         </div>
         <div class="profile-actions-edit">
           <div
@@ -19,23 +23,23 @@
       </div>
       <div class="profile-info">
         <p class="profile-info-name">
-          {{ me.profile.name }}
+          Md Shiblu Ahmed
         </p>
         <span class="profile-info-username">
-          {{ me.profile.nickname }}
+          shibluahmed01
         </span>
       </div>
       <div class="profile-description">
-        {{ me.profile.description }}
+        I am a font-end developer
       </div>
       <div class="profile-created-at">
         <span>
           <base-icon icon="link" />
-          <a :href="profileWebsite.full_website">{{ profileWebsite.website }}</a>
+          <a href="https://twitter.com/shibluahmed01">Main account</a>
         </span>
         <span>
           <base-icon icon="calendar" />
-          Joined {{ joinedAtDate }}
+          Joined 2022
         </span>
       </div>
       <div class="profile-follower-counts">
@@ -53,74 +57,74 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import moment from 'moment'
-import {getMe} from '@/services/api'
-import BaseIcon from '@/components/BaseIcon'
+import { mapGetters } from "vuex";
+import moment from "moment";
+import { getMe } from "@/services/api";
+import BaseIcon from "@/components/BaseIcon";
 
 export default {
-  name: 'ProfileHeader',
-  components:{
-    BaseIcon
+  name: "ProfileHeader",
+  components: {
+    BaseIcon,
   },
-  computed:{
+  computed: {
     ...mapGetters({
-      getMyProfileId: 'getMyProfileId',
-      me: 'getMe'
+      getMyProfileId: "getMyProfileId",
+      me: "getMe",
     }),
-    profileWebsite(){
+    profileWebsite() {
       return {
         website: new URL(new URL(this.me.profile.website)).host,
-        full_website: this.me.profile.website
-      }
+        full_website: this.me.profile.website,
+      };
     },
-    joinedAtDate(){
-      return `${moment(this.me.createdAt).format("MMM YYYY")}`
-    }
+    joinedAtDate() {
+      return `${moment(this.me.createdAt).format("MMM YYYY")}`;
+    },
   },
-  async mounted(){
+  async mounted() {
     try {
-      const response = await getMe({id: this.getMyProfileId});
-      this.$store.commit('setMe', response.data);
-      return
+      const response = await getMe({ id: this.getMyProfileId });
+      this.$store.commit("setMe", response.data);
+      return;
     } catch (err) {
       this.$notification({
-        type: 'error',
-        message: 'Error when fetching user data'
-      })
+        type: "error",
+        message: "Error when fetching user data",
+      });
     }
   },
-  methods:{
-    moment
-  }
-}
+  methods: {
+    moment,
+  },
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/theme/colors.scss';
-.profile{
-  &-cover-pic{
+@import "@/assets/theme/colors.scss";
+.profile {
+  &-cover-pic {
     border-bottom: $border-dark;
-    img{
+    img {
       vertical-align: middle;
     }
   }
-  &-actions{
+  &-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    &-image{
+    &-image {
       width: 130px;
       height: 130px;
       margin-top: -80px;
-      img{
+      img {
         border: 1px solid $color-dark-gray;
         border-radius: 999px;
         width: 100%;
       }
     }
-    &-edit{
-      .edit-button{
+    &-edit {
+      .edit-button {
         border-radius: 999px;
         border: 1px solid $color-blue;
         color: $color-blue;
@@ -129,68 +133,68 @@ export default {
         padding: 1rem;
         cursor: pointer;
         transition: background-color 80ms ease;
-        &:hover{
+        &:hover {
           background-color: rgba($color: $color-blue, $alpha: 0.1);
         }
       }
     }
   }
-  &-info{
+  &-info {
     margin-top: 1rem;
-    &-name{
+    &-name {
       color: #fff;
       margin: 0;
       font-weight: bold;
       font-size: 1.5rem;
     }
-    &-username{
+    &-username {
       font-size: 1.2rem;
       color: $color-dark-gray;
     }
   }
-  &-description{
+  &-description {
     margin-top: 1rem;
     color: #fff;
   }
-  &-created-at{
+  &-created-at {
     margin-top: 1rem;
     display: flex;
     align-items: center;
     color: $color-dark-gray;
-    a{
+    a {
       color: $color-blue;
-      &:hover{
+      &:hover {
         text-decoration: underline;
       }
     }
-    span{
+    span {
       display: flex;
       align-items: center;
-      & + span{
+      & + span {
         margin-left: 2rem;
       }
-      svg{
+      svg {
         fill: $color-dark-gray;
-        margin-right: .5rem;
+        margin-right: 0.5rem;
         width: 1.2rem;
         height: 1.2rem;
       }
     }
   }
-  &-follower-counts{
+  &-follower-counts {
     display: flex;
     color: #fff;
     cursor: pointer;
     margin-top: 1rem;
-    p{
+    p {
       margin: 0;
-      & + p{
+      & + p {
         margin-left: 1rem;
       }
-      span{
+      span {
         color: $color-dark-gray;
       }
-      &:hover{
+      &:hover {
         text-decoration: underline;
       }
     }

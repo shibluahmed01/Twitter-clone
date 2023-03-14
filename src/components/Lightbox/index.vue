@@ -1,104 +1,80 @@
 <template>
-  <div
-    ref="lightboxWrapper"
-    class="lightbox"
-    @click="handleClickOutside"
-  >
+  <div ref="lightboxWrapper" class="lightbox" @click="handleClickOutside">
     <div class="lightbox-wrapper">
-      <div
-        class="lightbox-wrapper-item"
-      >
-        <img
-          :src="images[currentImage]"
-          alt=""
-        >
+      <div class="lightbox-wrapper-item">
+        <img :src="images[currentImage]" alt="" />
       </div>
     </div>
-    <div
-      class="lightbox-close-icon"
-      @click="$store.dispatch('closeLightbox')"
-    >
+    <div class="lightbox-close-icon" @click="$store.dispatch('closeLightbox')">
       <BaseIcon icon="close" />
     </div>
-    <div
-      v-if="hasMultipleImages"
-      class="lightbox-controls"
-    >
-      <div
-        class="lightbox-controls-left"
-        @click="decreaseImageState"
-      >
+    <div v-if="hasMultipleImages" class="lightbox-controls">
+      <div class="lightbox-controls-left" @click="decreaseImageState">
         <BaseIcon icon="left" />
       </div>
-      <div
-        class="lightbox-controls-right"
-        @click="increaseImageState"
-      >
+      <div class="lightbox-controls-right" @click="increaseImageState">
         <BaseIcon icon="right" />
       </div>
     </div>
-    <div
-      v-if="hasMultipleImages"
-      class="lightbox-current-image"
-    >
-      {{ `${currentImage+1} / ${images.length}` }}
+    <div v-if="hasMultipleImages" class="lightbox-current-image">
+      {{ `${currentImage + 1} / ${images.length}` }}
     </div>
   </div>
 </template>
 
 <script>
-import BaseIcon from '@/components/BaseIcon'
+import BaseIcon from "@/components/BaseIcon";
 
 export default {
-  name: 'Lightbox',
+  name: "Lightbox",
   components: {
-    BaseIcon
+    BaseIcon,
   },
-  props:{
+  props: {
     images: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  data(){
+  data() {
     return {
       currentImage: 0,
-    }
+    };
   },
-  computed:{
-    hasMultipleImages(){
-      return this.images.length > 1
-    }
+  computed: {
+    hasMultipleImages() {
+      return this.images.length > 1;
+    },
   },
   methods: {
-    increaseImageState(){
-      if(this.currentImage == this.images.length - 1){
-        return this.currentImage = 0
+    increaseImageState() {
+      if (this.currentImage == this.images.length - 1) {
+        return (this.currentImage = 0);
       }
       this.currentImage++;
     },
-    decreaseImageState(){
-      if(this.currentImage == 0){
-        return this.currentImage = this.images.length - 1
+    decreaseImageState() {
+      if (this.currentImage == 0) {
+        return (this.currentImage = this.images.length - 1);
       }
       this.currentImage--;
     },
     handleClickOutside: function(e) {
       const object = {
-        target: e.target, 
-        ref: this.$refs.lightboxWrapper
-      }
-      if(object.target !== object.ref) return
-      this.$store.dispatch("closeLightbox")
+        target: e.target,
+        ref: this.$refs.lightboxWrapper,
+      };
+      if (object.target !== object.ref) return;
+      this.$store.dispatch("closeLightbox");
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/theme/colors.scss';
+@import "@/assets/theme/colors.scss";
 
-.lightbox{
+.lightbox {
   position: fixed;
   top: 0;
   left: 0;
@@ -108,16 +84,16 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  &-wrapper{
+  &-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     max-height: 80vh;
     max-width: 65%;
-    &-item{
+    &-item {
       max-height: 80%;
       max-width: 80%;
-      img{
+      img {
         max-height: 100%;
         max-width: 100%;
         -webkit-user-select: none;
@@ -125,37 +101,37 @@ export default {
       }
     }
   }
-  &-close-icon{
+  &-close-icon {
     width: 2.5rem;
     height: 2.5rem;
     padding: 8px;
     position: absolute;
     right: 0;
     top: 0;
-    svg{
+    svg {
       width: 100%;
       height: 100%;
-      fill: rgba($color: $tweet-action-red, $alpha: 1.0);
+      fill: rgba($color: $tweet-action-red, $alpha: 1);
     }
   }
-  &-controls{
-    & > *{
+  &-controls {
+    & > * {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      svg{
+      svg {
         fill: #fff;
       }
     }
-    &-left{
+    &-left {
       left: 10px;
     }
-    &-right{
+    &-right {
       right: 10px;
     }
   }
-  &-current-image{
+  &-current-image {
     width: 100%;
     position: absolute;
     bottom: 10px;

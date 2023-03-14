@@ -1,21 +1,16 @@
 <template>
-  <div
-    class="sidebar-profile-wrapper"
-  >
-    <div
-      class="sidebar-profile"
-      @click="toggleMenu"
-    >
+  <div class="sidebar-profile-wrapper">
+    <div class="sidebar-profile" @click="toggleMenu">
       <div class="sidebar-profile-pic">
         <img
-          :src="me.profile.pic"
-        >
+          src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/328890854_6049339775125967_4957679846861641276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEsEQMGABUL1QCAWvQYGi_1veZIDFRML2C95kgMVEwvYPFgzNY-WuJXHuSh_neYNCPizwJdAuvXfhItdWXbsiED&_nc_ohc=EbIV2iMDaBgAX_ZsKLj&_nc_ht=scontent.frjh1-1.fna&oh=00_AfC9UoV7A5AwAoLaLII8E4mXwxbgbv-81AxOnzIERKwe1A&oe=6415E25B"
+        />
       </div>
       <div class="sidebar-profile-items">
         <div class="profile-info">
-          <p>{{ me.profile.name }}</p>
+          <p>Shiblu Ahmed</p>
           <p class="nickname">
-            {{ me.profile.nickname }}
+            @shibluahmed01
           </p>
         </div>
         <div class="more">
@@ -23,21 +18,18 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="isMenuOpened"
-      class="sidebar-profile-popup"
-    >
+    <div v-if="isMenuOpened" class="sidebar-profile-popup">
       <div class="popup-header">
         <div class="sidebar-profile-pic">
           <img
-            :src="me.profile.pic"
-          >
+            src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/328890854_6049339775125967_4957679846861641276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEsEQMGABUL1QCAWvQYGi_1veZIDFRML2C95kgMVEwvYPFgzNY-WuJXHuSh_neYNCPizwJdAuvXfhItdWXbsiED&_nc_ohc=EbIV2iMDaBgAX_ZsKLj&_nc_ht=scontent.frjh1-1.fna&oh=00_AfC9UoV7A5AwAoLaLII8E4mXwxbgbv-81AxOnzIERKwe1A&oe=6415E25B"
+          />
         </div>
         <div class="sidebar-profile-items">
           <div class="profile-info">
-            <p>{{ me.profile.name }}</p>
+            <p>Shiblu Ahmed</p>
             <p class="nickname">
-              {{ me.profile.nickname }}
+              Jack
             </p>
           </div>
           <div class="more">
@@ -45,17 +37,14 @@
           </div>
         </div>
       </div>
-      <hr class="popup-spacing">
+      <hr class="popup-spacing" />
       <div class="popup-body">
         <div class="popup-body-item">
           <p>Add an existing account</p>
         </div>
-        <hr class="popup-spacing">
-        <div
-          class="popup-body-item"
-          @click="handleLogOut"
-        >
-          <p>Logout from <span>{{ me.profile.nickname }}</span></p>
+        <hr class="popup-spacing" />
+        <div class="popup-body-item" @click="handleLogOut">
+          <p>Logout from <span>@shibluahmed01</span></p>
         </div>
       </div>
     </div>
@@ -63,40 +52,40 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import BaseIcon from '../BaseIcon/index'
+import { mapGetters } from "vuex";
+import BaseIcon from "../BaseIcon/index";
 
 export default {
-  name: 'ProfilePopup',
+  name: "ProfilePopup",
   components: {
-    BaseIcon
+    BaseIcon,
   },
-  data: function(){
+  data: function() {
     return {
-      isMenuOpened: false
-    }
+      isMenuOpened: false,
+    };
   },
   computed: {
     ...mapGetters({
-      me: 'getMe'
-    })
+      me: "getMe",
+    }),
   },
-  methods:{
-    toggleMenu: function(){
-      this.isMenuOpened = !this.isMenuOpened
+  methods: {
+    toggleMenu: function() {
+      this.isMenuOpened = !this.isMenuOpened;
     },
-    handleLogOut(){
-      this.$store.dispatch('setLogOut');
-      this.$router.push('/login');
-    }
-  }
-}
+    handleLogOut() {
+      this.$store.dispatch("setLogOut");
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/theme/colors.scss';
+@import "@/assets/theme/colors.scss";
 
-.sidebar-profile{
+.sidebar-profile {
   display: flex;
   align-items: center;
   width: 100%;
@@ -104,51 +93,51 @@ export default {
   margin-bottom: 10px;
   cursor: pointer;
   border-radius: 999px;
-  &-wrapper{
+  &-wrapper {
     position: relative;
   }
-  &:hover{
+  &:hover {
     background-color: rgba($color: $color-blue, $alpha: 0.3);
   }
-  &-pic{
+  &-pic {
     width: 3rem;
     height: 3rem;
     margin: 6px 0;
-    img{
+    img {
       border-radius: 999px;
       width: 100%;
     }
   }
-  &-items{
+  &-items {
     margin-left: 10px;
     display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
-    .profile-info{
+    .profile-info {
       user-select: none;
-      p{
+      p {
         margin: 0;
         & + p {
           margin-top: 5px;
         }
         color: #fff;
-        &.nickname{
+        &.nickname {
           color: $color-dark-gray;
         }
       }
     }
-    .more{
+    .more {
       width: 2rem;
       height: 2rem;
-      svg{
+      svg {
         width: 100%;
         fill: #fff;
         display: block;
       }
     }
   }
-  &-popup{
+  &-popup {
     position: absolute;
     z-index: 3;
     width: 105%;
@@ -158,39 +147,39 @@ export default {
     padding: 10px;
     background-color: $color-bg;
     box-shadow: $shadow-white;
-    & .popup-spacing{
+    & .popup-spacing {
       border: none;
       background-color: rgba($color: $color-dark-gray, $alpha: 0.2);
       padding-top: 2px;
       margin: 3px;
     }
-    .popup-header{
+    .popup-header {
       display: flex;
       width: 100%;
       padding: 8px;
-      .more{
+      .more {
         width: 1.5rem;
         height: 1.5rem;
-        svg{
+        svg {
           fill: $color-blue;
           width: 100%;
         }
       }
     }
-    .popup-body{
-      &-item{
+    .popup-body {
+      &-item {
         color: #fff;
         font-size: 1.1rem;
         padding: 1rem;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: rgba($color: $color-dark-gray, $alpha: 0.3);
         }
-        p{
+        p {
           margin: 0;
           padding: 0;
         }
-        span{
+        span {
           color: $color-blue;
         }
       }
