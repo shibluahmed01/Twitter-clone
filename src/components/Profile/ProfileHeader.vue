@@ -2,7 +2,7 @@
   <header v-if="me.id">
     <div class="profile-cover-pic">
       <img
-        src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/321609998_685262263091569_9019932702197600597_n.jpg?stp=dst-jpg_s960x960&_nc_cat=110&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeGE9k30HpVFtHqvJAfNiRhQf0K3LliFHRZ_QrcuWIUdFt-n4YwVBZnyivqeib5cgpDJXY-nOtngihOWE1E0gcuE&_nc_ohc=Yb6E8jGoeMYAX-RKEto&_nc_ht=scontent.frjh1-1.fna&oh=00_AfBgsDA9fHsU_j9PQw7P4Gx5Zzb6mg2CkvVCLNIDOTT6Ew&oe=64150D85"
+        src="https://pbs.twimg.com/profile_banners/1276256128758759429/1676957167/600x200"
       />
     </div>
     <div class="profile-header">
