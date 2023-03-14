@@ -8,8 +8,8 @@
     <div class="tweet-content">
       <div class="tweet-content-header">
         <p>
-          {{ tweetData.author.profile.name }}
-          <span class="nickname">{{ tweetData.author.profile.nickname }}</span>
+          Shiblu Ahmed
+          <span class="nickname">@shibluahmed01</span>
           <span>&#183;</span>
           <span class="created-at">{{
             moment(tweetData.createdAt).fromNow()
