@@ -10,29 +10,24 @@
       <div class="login-form-item">
         <input
           id="username"
-          v-model="userInfo.username"
           type="text"
           required
           autocomplete="off"
           @keypress.enter="handleLogin"
-        >
+        />
         <label for="username">Username</label>
       </div>
       <div class="login-form-item">
         <input
           id="password"
-          v-model="userInfo.password"
           type="password"
           required
           autocomplete="off"
           @keypress.enter="handleLogin"
-        >
+        />
         <label for="password">Password</label>
       </div>
-      <div
-        class="login-submit"
-        @click="handleLogin"
-      >
+      <div class="login-submit" @click="handleLogin">
         Log in
       </div>
       <div class="login-footer">
@@ -47,107 +42,108 @@
 </template>
 
 <script>
-import {login} from '@/services/api'
-import BaseIcon from '@/components/BaseIcon'
+import { login } from "@/services/api";
+import BaseIcon from "@/components/BaseIcon";
 export default {
-  name:'LoginView',
+  name: "LoginView",
   components: {
-    BaseIcon
+    BaseIcon,
   },
-  data: function(){
+  data: function() {
     return {
       userInfo: {
-        username: 'kaanersoy',
-        password: 'password'
+        username: "kaanersoy",
+        password: "password",
       },
       validationError: {
         username: false,
-        password: false
-      }
-    }
+        password: false,
+      },
+    };
   },
-  methods:{
-    handleLogin: async function(){
-      try{
+  methods: {
+    handleLogin: async function() {
+      try {
         const response = await login(this.userInfo);
-        if(!response.data.user){
-          return
+        if (!response.data.user) {
+          return;
         }
-        this.$store.dispatch('setLoginInfo', response.data.user)
-        return this.$router.push('/')
-      }catch(err) {
+        this.$store.dispatch("setLoginInfo", response.data.user);
+        return this.$router.push("/");
+      } catch (err) {
         this.$notification({
-          type: 'error',
-          message: 'Failed when authentication'
-        })
+          type: "error",
+          message: "Failed when authentication",
+        });
       }
     },
-    validateForm: function(){
-      this.validationError.username = false
-      this.validationError.password = false
-      if(this.userInfo.username.length < 5){
-        this.validationError.username = true
+    validateForm: function() {
+      this.validationError.username = false;
+      this.validationError.password = false;
+      if (this.userInfo.username.length < 5) {
+        this.validationError.username = true;
       }
-      if(this.userInfo.password.length < 5){
-        this.validationError.password = true
+      if (this.userInfo.password.length < 5) {
+        this.validationError.password = true;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/theme/colors.scss';
-@import '@/assets/variables.scss';
+@import "@/assets/theme/colors.scss";
+@import "@/assets/variables.scss";
 
-.login{
+.login {
   width: 400px;
   margin: 0 auto;
   margin-top: 20px;
-  &-icon{
+  &-icon {
     width: 3rem;
-    svg{
+    svg {
       width: 100%;
       fill: $color-blue;
     }
   }
-  &-header{
-    h2{
+  &-header {
+    h2 {
       font-size: 2rem;
       font-weight: black;
       color: #fff;
     }
   }
-  &-form{
+  &-form {
     margin-top: 2.5rem;
     & > * {
       margin-top: 2rem;
     }
-    &-item{
+    &-item {
       position: relative;
-      & + .login-form-item{
+      & + .login-form-item {
         margin-top: 2.2rem;
       }
-      input{
+      input {
         display: block;
         width: 100%;
         font-size: 1.2rem;
         background-color: transparent;
         color: #fff;
         font-weight: bold;
-        padding: .8rem 4px;
+        padding: 0.8rem 4px;
         border: 1px solid rgba($color: $color-dark-gray, $alpha: 0.3);
-        &:focus{
+        &:focus {
           outline: none;
         }
-        &:focus, &:valid{
-          & ~ label{
+        &:focus,
+        &:valid {
+          & ~ label {
             transform: translate(0, -3rem) scale(0.85);
             left: 0px;
           }
         }
       }
-      label{
+      label {
         position: absolute;
         left: 5px;
         top: 50%;
@@ -160,7 +156,7 @@ export default {
       }
     }
   }
-  &-submit{
+  &-submit {
     background-color: $color-blue;
     font-weight: bold;
     text-align: center;
@@ -169,20 +165,19 @@ export default {
     color: #fff;
     cursor: pointer;
   }
-  &-footer{
+  &-footer {
     text-align: center;
     color: $color-blue;
-    span{
-      &.dot{
+    span {
+      &.dot {
         margin: 0 8px;
       }
     }
   }
 }
 @media screen and (max-width: $phone) {
-  .login{
+  .login {
     width: 80%;
   }
 }
-
 </style>
