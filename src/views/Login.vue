@@ -38,6 +38,8 @@
         </p>
       </div>
     </div>
+    <!-- v-model="userInfo.password"
+    v-model="userInfo.username" -->
   </div>
 </template>
 
