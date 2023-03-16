@@ -15,7 +15,7 @@
         <div class="profile-actions-edit">
           <div
             class="edit-button"
-            @click="$store.commit('setEditProfileStatus', true)"
+            @click="$store.commit('setEditProfileStatus')"
           >
             Edit profile
           </div>
