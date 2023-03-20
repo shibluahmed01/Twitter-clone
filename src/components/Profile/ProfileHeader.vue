@@ -9,7 +9,7 @@
       <div class="profile-actions">
         <div class="profile-actions-image">
           <img
-            src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/328890854_6049339775125967_4957679846861641276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEsEQMGABUL1QCAWvQYGi_1veZIDFRML2C95kgMVEwvYPFgzNY-WuJXHuSh_neYNCPizwJdAuvXfhItdWXbsiED&_nc_ohc=EbIV2iMDaBgAX_ZsKLj&_nc_ht=scontent.frjh1-1.fna&oh=00_AfC9UoV7A5AwAoLaLII8E4mXwxbgbv-81AxOnzIERKwe1A&oe=6415E25B"
+            src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/328890854_6049339775125967_4957679846861641276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEsEQMGABUL1QCAWvQYGi_1veZIDFRML2C95kgMVEwvYPFgzNY-WuJXHuSh_neYNCPizwJdAuvXfhItdWXbsiED&_nc_ohc=l5XtSvk99Q0AX_CXCpk&_nc_ht=scontent.frjh1-1.fna&oh=00_AfD6dLB0oODbpYkip_xovqirR7ezdp4MZ85UbkilHQBxaA&oe=641DCB5B"
           />
         </div>
         <div class="profile-actions-edit">
