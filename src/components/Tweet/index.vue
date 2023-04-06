@@ -1,10 +1,7 @@
 <template>
   <div class="tweet">
     <div class="tweet-owner">
-      <img
-        style="height: 35px;"
-        src="https://scontent.frjh1-1.fna.fbcdn.net/v/t39.30808-6/328890854_6049339775125967_4957679846861641276_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEsEQMGABUL1QCAWvQYGi_1veZIDFRML2C95kgMVEwvYPFgzNY-WuJXHuSh_neYNCPizwJdAuvXfhItdWXbsiED&_nc_ohc=l5XtSvk99Q0AX_CXCpk&_nc_ht=scontent.frjh1-1.fna&oh=00_AfD6dLB0oODbpYkip_xovqirR7ezdp4MZ85UbkilHQBxaA&oe=641DCB5B"
-      />
+      <img style="height: 35px;" src="../../assets/me.jpg" />
     </div>
     <div class="tweet-content">
       <div class="tweet-content-header">
