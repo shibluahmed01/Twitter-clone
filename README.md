@@ -16,9 +16,6 @@ Twitter clone made with Vue.js, Vue Router, Vuex and Axios-mock-adapter(for fake
 
 ### 📰 Clone the project
 
-```bash
-git clone https://github.com/kaanersoy/twitter-clone.git
-```
 
 ### 🔻 Install Dependencies
 
@@ -44,15 +41,6 @@ With npm:
 npm run serve
 ```
 
-## 🔴 Demo 
-You can visit the demo from: [Cwitter Demo](https://cwitter-demo.vercel.app/)
-
-#### 🔐 Auth info
-|    | Username      | Password      |
-| -- | ------------- | ------------- |
-| 1  | `kaanersoy`   | `password`    |
-
-
 ## 📕 Other informations
 
 ### ✔ Last Updates
@@ -62,12 +50,3 @@ You can visit the demo from: [Cwitter Demo](https://cwitter-demo.vercel.app/)
 - Added profile editting popup for Profile view
 
 ### 🖊 Contributors:
-
-- [kaanersoy](https://github.com/kaanersoy)
-
-### 📃 License
-
-MIT licensed, you can found in the [LICENSE](https://github.com/kaanersoy/twitter-clone/blob/master/LICENSE) file.
-
-
-> You can find TODOs from: [TODO.md](https://github.com/kaanersoy/twitter-clone/blob/master/TODO.md)
